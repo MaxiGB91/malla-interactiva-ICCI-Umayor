@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,10 +9,15 @@
 <body>
     <header>
         <h1>Malla Interactiva - Ingeniería Civil en Computación e Informática</h1>
+        <div class="progreso-container">
+            <div id="progreso-barra"></div>
+            <span id="progreso-texto">Progreso: 0%</span>
+        </div>
     </header>
     <main>
         <section id="controls">
             <input type="text" id="buscador" placeholder="Buscar ramo..." />
+            <button id="resetear">Resetear Progreso</button>
         </section>
         <section id="malla"></section>
     </main>
