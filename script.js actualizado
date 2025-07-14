@@ -1,5 +1,6 @@
+// script.js - Versión garantizada para mostrar los ramos
 document.addEventListener('DOMContentLoaded', function() {
-    const malla = [
+    const mallaEjemplo = [
         {
             semestre: 1,
             asignaturas: [
@@ -18,18 +19,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const contenedor = document.getElementById("malla");
     
-    malla.forEach(sem => {
-        const divSem = document.createElement("div");
-        divSem.className = "semestre";
-        divSem.innerHTML = `<h3>Semestre ${sem.semestre}</h3>`;
+    mallaEjemplo.forEach(semestre => {
+        const divSemestre = document.createElement("div");
+        divSemestre.className = "semestre";
+        divSemestre.innerHTML = `<h3>Semestre ${semestre.semestre}</h3>`;
         
-        sem.asignaturas.forEach(ramo => {
+        semestre.asignaturas.forEach(ramo => {
             const divRamo = document.createElement("div");
             divRamo.className = `ramo ${ramo.estado}`;
-            divRamo.innerHTML = `${ramo.codigo}: ${ramo.nombre}`;
-            divSem.appendChild(divRamo);
+            divRamo.textContent = `${ramo.codigo}: ${ramo.nombre}`;
+            divSemestre.appendChild(divRamo);
         });
         
-        contenedor.appendChild(divSem);
+        contenedor.appendChild(divSemestre);
     });
+
+    console.log("¡Los ramos deberían estar visibles ahora!"); // Verifica en la consola (F12)
 });
