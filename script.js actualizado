@@ -1,0 +1,168 @@
+
+const malla = [
+    {
+        semestre: 1,
+        asignaturas: [
+            { nombre: "Química aplicada a la ingeniería", estado: "pendiente", codigo: "CIQ101", prereqs: [] },
+            { nombre: "Álgebra", estado: "pendiente", codigo: "MAT101", prereqs: [] },
+            { nombre: "Cálculo", estado: "pendiente", codigo: "MAT102", prereqs: [] },
+            { nombre: "Pensamiento computacional", estado: "pendiente", codigo: "INF101", prereqs: [] }
+        ]
+    },
+    {
+        semestre: 2,
+        asignaturas: [
+            { nombre: "Física", estado: "pendiente", codigo: "FIS101", prereqs: ["MAT102"] },
+            { nombre: "Cálculo integral", estado: "pendiente", codigo: "MAT201", prereqs: ["MAT102"] },
+            { nombre: "Estadística", estado: "pendiente", codigo: "EST101", prereqs: [] },
+            { nombre: "Arquitectura de computadores", estado: "pendiente", codigo: "INF102", prereqs: ["INF101"] }
+        ]
+    },
+    {
+        semestre: 3,
+        asignaturas: [
+            { nombre: "Inferencia", estado: "pendiente", codigo: "EST201", prereqs: ["EST101"] },
+            { nombre: "Álgebra lineal", estado: "pendiente", codigo: "MAT301", prereqs: ["MAT101"] },
+            { nombre: "Ecuaciones diferenciales", estado: "pendiente", codigo: "MAT302", prereqs: ["MAT201"] },
+            { nombre: "Programación aplicada en análisis de datos", estado: "pendiente", codigo: "INF201", prereqs: ["INF101"] }
+        ]
+    },
+    {
+        semestre: 4,
+        asignaturas: [
+            { nombre: "Cálculo multivariable", estado: "pendiente", codigo: "MAT303", prereqs: ["MAT201"] },
+            { nombre: "Mecánica", estado: "pendiente", codigo: "FIS201", prereqs: ["FIS101"] },
+            { nombre: "Microeconomía", estado: "pendiente", codigo: "ECO101", prereqs: [] },
+            { nombre: "Estructura de datos", estado: "pendiente", codigo: "INF202", prereqs: ["INF101"] }
+        ]
+    },
+    {
+        semestre: 5,
+        asignaturas: [
+            { nombre: "Análisis numérico", estado: "pendiente", codigo: "MAT401", prereqs: ["MAT302"] },
+            { nombre: "Estadística multivariada", estado: "pendiente", codigo: "EST301", prereqs: ["EST201"] },
+            { nombre: "Base de datos I", estado: "pendiente", codigo: "INF301", prereqs: ["INF202"] },
+            { nombre: "Lenguajes de programación", estado: "pendiente", codigo: "INF302", prereqs: ["INF202"] }
+        ]
+    },
+    {
+        semestre: 6,
+        asignaturas: [
+            { nombre: "Proyecto cornerstone", estado: "pendiente", codigo: "PRO101", prereqs: [] },
+            { nombre: "Interacción humano computador", estado: "pendiente", codigo: "INF401", prereqs: [] },
+            { nombre: "Sistemas operativos", estado: "pendiente", codigo: "INF402", prereqs: ["INF102"] },
+            { nombre: "Base de datos II", estado: "pendiente", codigo: "INF403", prereqs: ["INF301"] }
+        ]
+    },
+    {
+        semestre: 7,
+        asignaturas: [
+            { nombre: "Arquitectura de desarrollo (móvil y web)", estado: "pendiente", codigo: "INF501", prereqs: ["INF202"] },
+            { nombre: "Seguridad de la información", estado: "pendiente", codigo: "INF502", prereqs: [] },
+            { nombre: "Ingeniería de software", estado: "pendiente", codigo: "INF503", prereqs: ["INF202"] },
+            { nombre: "Proyecto capstone intermedio", estado: "pendiente", codigo: "PRO201", prereqs: ["PRO101"] }
+        ]
+    },
+    {
+        semestre: 8,
+        asignaturas: [
+            { nombre: "Calidad de software", estado: "pendiente", codigo: "INF601", prereqs: ["INF503"] },
+            { nombre: "Inteligencia artificial", estado: "pendiente", codigo: "INF602", prereqs: ["INF202"] },
+            { nombre: "Redes de computadores", estado: "pendiente", codigo: "INF603", prereqs: [] },
+            { nombre: "Ingeniería financiera", estado: "pendiente", codigo: "ECO201", prereqs: [] }
+        ]
+    },
+    {
+        semestre: 9,
+        asignaturas: [
+            { nombre: "Computación paralela y distribuida", estado: "pendiente", codigo: "INF701", prereqs: [] },
+            { nombre: "Machine learning", estado: "pendiente", codigo: "INF702", prereqs: ["INF602"] },
+            { nombre: "Práctica inicial", estado: "pendiente", codigo: "PRA101", prereqs: [] },
+            { nombre: "Deep learning", estado: "pendiente", codigo: "INF703", prereqs: ["INF702"] }
+        ]
+    },
+    {
+        semestre: 10,
+        asignaturas: [
+            { nombre: "Inteligencia de negocios", estado: "pendiente", codigo: "INF801", prereqs: ["INF702"] },
+            { nombre: "Evaluación económica y financiera de proyectos", estado: "pendiente", codigo: "ECO301", prereqs: [] },
+            { nombre: "Desarrollo seguro de software", estado: "pendiente", codigo: "INF802", prereqs: ["INF503"] },
+            { nombre: "Práctica profesional", estado: "pendiente", codigo: "PRA201", prereqs: ["PRA101"] }
+        ]
+    },
+    {
+        semestre: 11,
+        asignaturas: [
+            { nombre: "Proyecto de ingeniería", estado: "pendiente", codigo: "PRO301", prereqs: ["PRO201"] },
+            { nombre: "Planificación estratégica", estado: "pendiente", codigo: "ADM101", prereqs: [] },
+            { nombre: "Gestión de proyectos de TI", estado: "pendiente", codigo: "ADM102", prereqs: [] },
+            { nombre: "Proyecto de título", estado: "pendiente", codigo: "PRO401", prereqs: ["PRO301"] }
+        ]
+    }
+];
+
+function crearTarjetas() {
+    const contenedor = document.getElementById("malla");
+    contenedor.innerHTML = "";
+    let total = 0, completado = 0;
+
+    malla.forEach(sem => {
+        const divSem = document.createElement("div");
+        divSem.className = "semestre";
+        const titulo = document.createElement("h3");
+        titulo.textContent = "Semestre " + sem.semestre;
+        divSem.appendChild(titulo);
+
+        sem.asignaturas.forEach(ramo => {
+            total++;
+            if (ramo.estado === "cursado") completado++;
+            const divRamo = document.createElement("div");
+            divRamo.className = "ramo " + ramo.estado;
+            divRamo.title = "Prerrequisitos: " + (ramo.prereqs.length > 0 ? ramo.prereqs.join(", ") : "Ninguno");
+            divRamo.textContent = ramo.nombre;
+            divRamo.onclick = () => {
+                const estados = ["pendiente", "en-curso", "cursado"];
+                let i = estados.indexOf(ramo.estado);
+                i = (i + 1) % estados.length;
+                ramo.estado = estados[i];
+                localStorage.setItem("malla", JSON.stringify(malla));
+                crearTarjetas();
+            };
+            divSem.appendChild(divRamo);
+        });
+        contenedor.appendChild(divSem);
+    });
+
+    const progreso = Math.round((completado / total) * 100);
+    document.getElementById("progreso-barra").style.width = progreso + "%";
+    document.getElementById("progreso-texto").textContent = "Progreso: " + progreso + "%";
+}
+
+document.getElementById("buscador").addEventListener("input", function () {
+    const valor = this.value.toLowerCase();
+    document.querySelectorAll(".ramo").forEach(div => {
+        if (div.textContent.toLowerCase().includes(valor)) {
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
+        }
+    });
+});
+
+document.getElementById("resetear").addEventListener("click", function () {
+    localStorage.removeItem("malla");
+    location.reload();
+});
+
+window.onload = () => {
+    const guardado = localStorage.getItem("malla");
+    if (guardado) {
+        const datos = JSON.parse(guardado);
+        datos.forEach((sem, i) => {
+            sem.asignaturas.forEach((r, j) => {
+                malla[i].asignaturas[j].estado = r.estado;
+            });
+        });
+    }
+    crearTarjetas();
+};
