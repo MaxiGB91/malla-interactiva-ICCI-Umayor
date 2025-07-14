@@ -149,10 +149,6 @@ document.getElementById("buscador").addEventListener("input", function () {
     });
 });
 
-document.getElementById("resetear").addEventListener("click", function () {
-    localStorage.removeItem("malla");
-    location.reload();
-});
 
 window.onload = () => {
     const guardado = localStorage.getItem("malla");
